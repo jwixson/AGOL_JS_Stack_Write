@@ -46,7 +46,7 @@
       url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
 
       //adding the popup here
-      outFields: ["INSTNM","TINSTSIZE", "WEBADDR"],
+      outFields: ["INSTNM","INSTSIZE", "WEBADDR"],
       popupTemplate: popupEduusa
       });
 
@@ -60,10 +60,21 @@
         "content": "<b>Faclity Name:</b> {Fac_Name}<br><b>Facility Type:</b> {Fac_Type}<br><b>Owner Name: </b><b>{Owner_Name}</b>"
       }
 
+      const airportRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "airport_icon.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
+
+
       //adding the Const for the feature layer
       const us_airports_layer = new FeatureLayer({
       url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/US_Airports_JW/FeatureServer",
-
+      renderer: airportRenderer,
       //adding the popup here
       outFields: ["Fac_Name","Fac_Type", "Owner_Name"],
       popupTemplate: popup_us_airports
