@@ -105,6 +105,59 @@
 
       map.add(us_airports_layer);      
 
+// Define a pop-up for us_heliports
+const popup_us_heliport = {
+        "title": "US heliports",
+        "content": "<b>Faclity Name:</b> {Fac_Name}<br><b>Facility Type:</b> {Fac_Type}<br><b>Owner Name: </b><b>{Owner_Name}</b>"
+      }
+
+      const heliportRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "helicopter.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
+
+      //const to make the heliport labels
+      const heliportLabels = {
+        symbol: {
+          type: "text",
+          color: "#FFFFFF",
+          haloColor: "#5E8D74",
+          haloSize: "2px",
+          font: {
+            size: "12px",
+            family: "Noto Sans",
+            style: "italic",
+            weight: "normal"
+          }
+        },
+        labelPlacement: "above-center",
+        labelExpressionInfo: {
+          expression: "$feature.Fac_Name"
+        }
+      };
+
+      //adding the Const for the US heliports feature layer
+      const us_heliport_layer = new FeatureLayer({
+      url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/US_Airports_JW/FeatureServer",
+      renderer: heliportRenderer,
+      definitionExpression:"Fac_Type='HELIPORT'",//adding sql filter for heliports
+      labelingInfo:[heliportLabels],
+      //adding the popup here
+      outFields: ["Fac_Name","Fac_Type", "Owner_Name"],
+      popupTemplate: popup_us_heliports
+      });
+
+      //adding the feature layer to the map
+
+      map.add(us_heliport_layer);      
+
+
+
         const graphicsLayer = new GraphicsLayer();  
       const point = { //Create a point  
           type: "point",  
