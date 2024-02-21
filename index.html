@@ -163,9 +163,16 @@
         "content": "<b>Airport ID:</b> {AirportCode}"
       }
 
-      const myairportRenderer = { //creates the symbol for the my airport feature - a diamond
-        "type": "simple",
-        "symbol": "diamond"
+      const myairportsymbol = { //creates the symbol for the my airport feature - a diamond
+        type: "simple-marker",
+        symbol: "diamond",
+        color: "#4040ff",
+        outline: {
+          color: [11,25,114],
+          width: 1
+        }
+
+
       }
 
       const myairportLabels = { //creates the label for the my airport feature
