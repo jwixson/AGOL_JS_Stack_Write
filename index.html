@@ -108,7 +108,7 @@
       map.add(us_airports_layer);      
 
 // Define a pop-up for us_heliports
-const popup_us_heliport = {
+      const popup_us_heliport = {
         "title": "US heliports",
         "content": "<b>Faclity Name:</b> {Fac_Name}<br><b>Facility Type:</b> {Fac_Type}<br><b>Owner Name: </b><b>{Owner_Name}</b>"
       }
@@ -154,114 +154,46 @@ const popup_us_heliport = {
       popupTemplate: popup_us_heliport
       });
 
-      //adding the feature layer to the map
 
-      map.add(us_heliport_layer);      
+      map.add(us_heliport_layer);      //adds heliport layer to map
 
+      const popup_myairport = { //creates the popup template for the myairports feature
+        "title": "US Airports I've Visited",
+        "content": "<b>Airport ID:</b> {AirportCode}"
+      }
 
+      const myairportRenderer = { //creates the symbol for the my airport feature - a diamond
+        "type": "simple",
+        "symbol": "diamond"
+      }
 
-        const graphicsLayer = new GraphicsLayer();  
-      const point = { //Create a point  
-          type: "point",  
-          longitude: -97.750689,    //long lat of Stevie Ray Vaughan Statue
-          latitude: 30.263098
-        };
-      const simpleMarkerSymbol = {  //defines the marker style
-          type: "simple-marker",  
-          style: "square", //changes the simple-marker symbol to a square instead of a circle
-          color: [0,35,255],  // Color of blues rock
-          outline: {  
-            color: [11,25,114], // White  
-            width: 1
-          }  
-        };
-
-        const popupTemplate = {
-          title: "{Name}",
-          content: "{Description}"
-        }
-        const attributes = {
-          Name: "Stevie Ray Vaughan Statue",
-          Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick"
-        }
-        const pointGraphic = new Graphic({  //creates the point
-          geometry: point,  
-          symbol: simpleMarkerSymbol ,
-          attributes: attributes,
-          popupTemplate: popupTemplate
-        });
-      
-      graphicsLayer.add(pointGraphic);//addes the point to the graphic layer container
-
-//add a line and a polygon to the map
-
-        // First create a line geometry (this is the Keystone pipeline)
-        const polyline = {
-          type: "polyline", // autocasts as new Polyline()
-          paths: [[-97.749147,30.262360], [-97.750678, 30.263074], [-97.751938, 30.263412],[-97.752914, 30.263929]]
-        };
-
-        // Create a symbol for drawing the line
-        const lineSymbol = {
-          type: "simple-line", // autocasts as SimpleLineSymbol()
-          color: [226, 119, 40],
-          width: 2
-        };
-
-        // Create an object for storing attributes related to the line
-        const lineAtt = {
-          Name: "Portion of Ann and Roy Butler Hike and Bike Trail",
-        };
-
-
-        const polylineGraphic = new Graphic({
-          geometry: polyline,
-          symbol: lineSymbol,
-          attributes: lineAtt,
-          popupTemplate: popupTemplate
-
-        });
-
-               /***************************
-         * Create a polygon graphic
-         ***************************/
-
-        // Create a polygon geometry
-        const polygon = {
-          type: "polygon", // autocasts as new Polygon()
-          rings: [[-97.754362,30.264254], [-97.754718,30.263808], [-97.751460,30.26178], [-97.749373, 30.260191],[-97.748449,30.262317]]
-        };
-
-        // Create a symbol for rendering the graphic
-        const fillSymbol = {
-          type: "simple-fill", // autocasts as new SimpleFillSymbol()
-          color: [35,160,59,0.8],
-          outline: {
-            // autocasts as new SimpleLineSymbol()
-            color: [0,0,0],
-            width: 1
+      const myairportLabels = { //creates the label for the my airport feature
+        symbol: {
+          type: "text",
+          color: "#ff3def",
+          haloColor: "#fffcf2",
+          haloSize: "1px",
+          font: {
+            size: "12px",
+            family: "Noto Sans",
+            style: "italic",
+            weight: "normal"
           }
-        };
-        const polygonAtt = {
-          Name: "Boundary of the Park around the Stevie Ray Vaughan Statue",
-        };
-        // Add the geometry and symbol to a new graphic
-        const polygonGraphic = new Graphic({
-          geometry: polygon,
-          symbol: fillSymbol,
-          attributes: polygonAtt,
-          popupTemplate:popupTemplate
-        });
+        },
+        labelPlacement: "above-center",
+        labelExpressionInfo: {
+          expression: "$feature.AirportCode"
+        }
+      };
 
-        view.graphics.addMany([polygonGraphic, pointGraphic ,polylineGraphic])
-      // map.add(graphicsLayer);
 
         //adding the const for the feature layer
         const myAirports = new FeatureLayer({
         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/My_Airports_JW/FeatureServer",
-        
-        //adding the popup here
+        renderer: myairportRenderer,
         outFields: ["AirportCode"],
+        popupTemplate: popup_myairport,
+        labelingInfo: [myairportLabels]
 
         });
 
