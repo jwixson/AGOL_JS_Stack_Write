@@ -163,17 +163,29 @@
         "content": "<b>Airport ID:</b> {AirportCode}"
       }
 
-      const myairportsymbol = { //creates the symbol for the my airport feature - a diamond
-        type: "simple-marker",
-        symbol: "diamond",
-        color: [0,43,255],
-        outline: {
-          color: [11,25,114],
-          width: 1
+      // const myairportsymbol = { 
+      //   type: "simple-marker",
+      //   symbol: "diamond",
+      //   color: [0,43,255],
+      //   outline: {
+      //     color: [11,25,114],
+      //     width: 1
+      //   }
+
+
+      // }
+
+
+      const myairportRenderer = {//creates the symbol for the my airport feature - a diamond
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "airport_visited.png",
+          "width": "18px",
+          "height": "18px"
         }
-
-
       }
+
 
       const myairportLabels = { //creates the label for the my airport feature
         symbol: {
@@ -198,7 +210,7 @@
         //adding the const for the feature layer
         const myAirports = new FeatureLayer({
         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/My_Airports_JW/FeatureServer",
-        renderer: myairportsymbol,
+        renderer: myairportRenderer,
         outFields: ["AirportCode"],
         popupTemplate: popup_myairport,
         labelingInfo: [myairportLabels]
