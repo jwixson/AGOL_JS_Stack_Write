@@ -198,7 +198,7 @@
         //adding the const for the feature layer
         const myAirports = new FeatureLayer({
         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/My_Airports_JW/FeatureServer",
-        renderer: myairportRenderer,
+        renderer: myairportsymbol,
         outFields: ["AirportCode"],
         popupTemplate: popup_myairport,
         labelingInfo: [myairportLabels]
