@@ -43,11 +43,43 @@
         "title": "EDUs",
         "content": "<b>Name:</b> {INSTNM}<br><b>Institution Size Category:</b> {INSTSIZE}<br><b>Web Address: </b><b>{WEBADDR}</b>"
       }
-
+      const EDURenderer = {//creates a renderer for the types of universities
+          type: "unique-value",
+          legendOptions: {
+            title: "Level of Institution"
+          },
+          field: "ICLEVEL",
+          uniqueValueInfos: [{
+            value: "Four or more years",
+            label: "Four or more years",
+            symbol: {
+              type: "simple-point",
+              color: "#e60049",
+              size: "10px"
+            }
+          }, {
+            value: "Less than 2 years (below associate)",
+            label: "Less than 2 years (below associate)",
+            symbol: {
+              type: "simple-point",
+              color: "#9b19f5",
+              size: "10px"
+            }
+          },
+          {
+            value: "At least 2 but less than 4 years",
+            label: "At least 2 but less than 4 years",
+            symbol: {
+              type: "simple-point",
+              color: "#e6d800",
+              size: "10px"
+            }
+          }]
+        };
       //adding the Const for the feature layer
       const usaeduLayer = new FeatureLayer({
       url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
-
+      renderer: EDURenderer,
       //adding the popup here
       outFields: ["INSTNM","INSTSIZE", "WEBADDR"],
       popupTemplate: popupEduusa
@@ -176,7 +208,7 @@
       // }
 
 
-      const myairportRenderer = {//creates the symbol for the my airport feature - a diamond
+      const myairportRenderer = {//creates the symbol for the my airport feature
         "type": "simple",
         "color": "#d89eff",
         "symbol": {
@@ -242,7 +274,6 @@
       // container: "legendDiv"
     });
     view.ui.add(legend, "bottom-right");
-
 
     });
   </script>
